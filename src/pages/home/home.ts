@@ -16,6 +16,8 @@ export class HomePage {
         let equation = input.innerText;
         if (label.toUpperCase() === 'C') {
             equation = '';
+        } else if (label.toUpperCase() === '<') {
+            equation = equation.slice(0, -1);
         } else if (label.toUpperCase() === 'ROLL') {
             let parts = equation.split('D');
             let count = parseInt(parts[0]);

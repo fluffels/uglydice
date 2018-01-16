@@ -1,13 +1,12 @@
 page-home {
   .buttons {
     button {
-      height: 100px;
+      height: 10ex;
       width: 30%;
     }
   }
 
   ion-label {
-    height: 4ex;
+    min-height: 2ex;
   }
-
 }
