@@ -27,7 +27,7 @@ export class HomePage {
                     let count = parseInt(parts[0]);
                     let sides = parseInt(parts[1]);
                     for (let die = 0; die < count; die++) {
-                        let roll = 1 + Math.round((Math.random() * (sides - 1)));
+                        let roll = 1 + Math.floor(Math.random() * sides);
                         rolls.push(roll);
                     }
                 } else {
