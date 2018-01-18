@@ -19,30 +19,32 @@ export class HomePage {
         } else if (label.toUpperCase() === '<') {
             equation = equation.slice(0, -1);
         } else if (label.toUpperCase() === 'ROLL') {
-            let parts = equation.split('D');
-            let count = parseInt(parts[0]);
-            parts = parts[1].split('+');
-            let sides = parseInt(parts[0]);
-            let modifier = parseInt(parts[1]);
-            console.log(`${count} ${sides} sided dice plus ${modifier}`);
-            let lastRoll = '';
-            let total = 0;
-            for (let die = 0; die < count; die++) {
-                let roll = 1 + Math.round((Math.random() * sides));
-                if (die == 0) {
-                    lastRoll = "" + roll;
+            let rolls = [];
+            let terms = equation.split('+');
+            terms.forEach((term) => {
+                let parts = term.split('D');
+                if (parts.length == 2) {
+                    let count = parseInt(parts[0]);
+                    let sides = parseInt(parts[1]);
+                    for (let die = 0; die < count; die++) {
+                        let roll = 1 + Math.round((Math.random() * (sides - 1)));
+                        rolls.push(roll);
+                    }
                 } else {
-                    lastRoll += " + " + roll;
+                    let modifier = parseInt(parts[0]);
+                    rolls.push(modifier);
                 }
-                total += roll;
+            });
+            let total = rolls.reduce((prev, current) => {
+                return prev + current;
+            });
+            let lastRoll = '';
+            if (rolls.length == 1) {
+                lastRoll += total;
+            } else {
+                lastRoll += rolls.join('+') + '=' + total;
             }
-            if (isNaN(modifier) === false) {
-                total += modifier;
-                lastRoll += " + " + modifier;
-            }
-            lastRoll += " = " + total;
             document.getElementById("last-roll").innerText = lastRoll;
-            console.log(total);
         } else {
             equation = equation + label;
         }
