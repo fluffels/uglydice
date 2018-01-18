@@ -5,12 +5,6 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-label id="equation"
-               type="text"
-               placeholder="e.g. 1d8+3"></ion-label>
-    <ion-label id="last-roll"
-               type="text"
-               placeholder="e.g. 4 + 3 = 7"></ion-label>
     <div class="buttons">
         <button *ngFor="let label of ['7','8','9',
                                       '4','5','6',
@@ -22,4 +16,10 @@
             {{label}}
         </button>
     </div>
+    <p id="equation"
+       type="text"
+       placeholder="e.g. 1d8+3"></p>
+    <p id="last-roll"
+       type="text"
+       placeholder="e.g. 4 + 3 = 7"></p>
 </ion-content>
