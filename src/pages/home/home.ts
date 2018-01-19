@@ -13,12 +13,14 @@ export class HomePage {
     buttonClick(event) {
         let label = event.target.innerText;
         let input = document.getElementById("equation");
+        let lastRollLabel = document.getElementById("last-roll");
         let equation = input.innerText;
         if (label.toUpperCase() === 'C') {
             equation = '';
         } else if (label.toUpperCase() === '<') {
             equation = equation.slice(0, -1);
         } else if (label.toUpperCase() === 'ROLL') {
+            lastRollLabel.innerText = '. . .';
             let rolls = [];
             let terms = equation.split('+');
             terms.forEach((term) => {
@@ -44,7 +46,9 @@ export class HomePage {
             } else {
                 lastRoll += rolls.join('+') + '=' + total;
             }
-            document.getElementById("last-roll").innerText = lastRoll;
+            setTimeout(() => {
+                lastRollLabel.innerText = lastRoll;
+            }, 300);
         } else {
             equation = equation + label;
         }
