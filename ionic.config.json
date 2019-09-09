@@ -1,8 +1,0 @@
-{
-  "name": "uglydice",
-  "app_id": "5f0412c5",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
-}
