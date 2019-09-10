@@ -92,13 +92,12 @@ export default class Expression {
     this.operandStack = [];
   }
 
-  consumeToken(t: string) {
-    let digit = parseInt(t);
-    if (isNaN(digit)) {
+  consumeToken(t: string | number) {
+    if (typeof t === 'number') {
       if (this.currentNumber === null) {
-        this.currentNumber = digit;
+        this.currentNumber = t;
       } else {
-        this.currentNumber = this.currentNumber * 10 + digit;
+        this.currentNumber = this.currentNumber * 10 + t;
       }
     } else {
       if (this.currentNumber == null) {
