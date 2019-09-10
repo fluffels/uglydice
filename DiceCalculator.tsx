@@ -32,7 +32,7 @@ interface CalculatorButtonProps {
   token: number | string;
 }
 
-class CalculatorButton extends React.Component<CalculatorButtonProps> {
+class CalculatorButton extends React.Component<CalculatorButtonProps, any> {
   render() {
     return (
       <TouchableHighlight
