@@ -26,8 +26,8 @@ it('calculates random expressions with addition', () => {
   e.consumeToken('d');
   e.consumeToken(2);
   e.consumeToken(0);
-  e.consumeToken('+')
-  e.consumeToken(5)
+  e.consumeToken('+');
+  e.consumeToken(5);
   let result = e.compute();
   expect(result).toBeLessThanOrEqual(25);
   expect(result).toBeGreaterThanOrEqual(6);
