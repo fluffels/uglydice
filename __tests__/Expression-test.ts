@@ -5,6 +5,6 @@ it('calculates basic expressions', () => {
   e.consumeToken(1);
   e.consumeToken('+');
   e.consumeToken(1);
-  //let result = e.compute();
-  //expect(result).toBe(2);
+  let result = e.compute();
+  expect(result).toBe(2);
 });

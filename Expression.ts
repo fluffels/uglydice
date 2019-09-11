@@ -117,6 +117,10 @@ export default class Expression {
   }
 
   compute() {
+    if (this.currentNumber != null) {
+      let node = new LeafNode(this.currentNumber);
+      this.operandStack.push(node);
+    }
     while (this.operatorStack.length > 0) {
       if (this.operandStack.length < 2) {
         throw new RuntimeError();
@@ -131,7 +135,7 @@ export default class Expression {
       );
       this.operandStack.unshift(node);
     }
-    if (this.operandStack.length > 0) {
+    if (this.operandStack.length != 1) {
       throw new RuntimeError();
     } else {
       let root = this.operandStack[0];
