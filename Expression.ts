@@ -1,13 +1,13 @@
 class RuntimeError {}
 
 enum Operators {
-  ROLL,
+  DIE,
   ADD,
   SUBTRACT,
 }
 
 const TokenOperatorMap = new Map([
-  ['Roll', Operators.ROLL],
+  ['d', Operators.DIE],
   ['+', Operators.ADD],
   ['-', Operators.SUBTRACT],
 ]);
@@ -72,7 +72,7 @@ function createBinaryNode(
 ): BinaryNode {
   if (operator === Operators.ADD) {
     return new AdditionNode(left, right);
-  } else if (operator === Operators.ROLL) {
+  } else if (operator === Operators.DIE) {
     return new RandomNode(left, right);
   } else if (operator === Operators.SUBTRACT) {
     return new SubtractionNode(left, right);
