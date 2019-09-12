@@ -25,9 +25,12 @@ const colours = {
   onError: '#FFFFFF',
 };
 
-const baseButtonTextStyle: TextStyle = {
+const baseTextStyle: TextStyle = {
   color: colours.onBackground,
   fontSize: 20,
+};
+const baseButtonTextStyle: TextStyle = {
+  ...baseTextStyle,
   textAlign: 'center',
 };
 const baseButtonStyle: ViewStyle = {
@@ -61,6 +64,13 @@ const styles = StyleSheet.create({
   operatorButtonText: {
     ...baseButtonTextStyle,
     color: colours.primary,
+  },
+  expressionRow: {
+    justifyContent: 'flex-start',
+  },
+  expressionText: {
+    ...baseTextStyle,
+    textAlign: 'right',
   },
   row: {
     flex: 1,
@@ -165,6 +175,7 @@ export default class DiceCalculator extends React.Component<
       history.push(result);
     } else if (token === 'C') {
       output = '...';
+      history = new Array<String>();
       this.expression = new Expression();
     } else {
       if (output === '...') {
@@ -186,7 +197,9 @@ export default class DiceCalculator extends React.Component<
           {this.state.history.map(result => (
             <Text style={styles.outputCell}>{result}</Text>
           ))}
-          <Text style={styles.outputCell}>{this.state.output}</Text>
+        </View>
+        <View style={styles.expressionRow}>
+          <Text style={styles.expressionText}>{this.state.output}</Text>
         </View>
         <View style={styles.row}>
           <OperandCalculatorButton onPress={this.onPress} token={7} />
