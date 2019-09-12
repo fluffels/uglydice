@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     color: colours.primary,
   },
   expressionRow: {
-    justifyContent: 'flex-start',
+    margin: 20,
   },
   expressionText: {
     ...baseTextStyle,
@@ -79,9 +79,11 @@ const styles = StyleSheet.create({
   outputRow: {
     flex: 3,
     flexDirection: 'column',
-    flexWrap: 'wrap',
+    alignItems: 'flex-end',
+    margin: 20,
   },
   outputCell: {
+    ...baseTextStyle,
     flex: 1,
   },
 });
@@ -194,8 +196,10 @@ export default class DiceCalculator extends React.Component<
     return (
       <View style={styles.container}>
         <View style={styles.outputRow}>
-          {this.state.history.map(result => (
-            <Text style={styles.outputCell}>{result}</Text>
+          {this.state.history.map((result, index) => (
+            <Text style={styles.outputCell} key={index}>
+              {result}
+            </Text>
           ))}
         </View>
         <View style={styles.expressionRow}>
