@@ -51,9 +51,6 @@ const styles = StyleSheet.create({
     ...baseButtonStyle,
     backgroundColor: colours.primary,
   },
-  operationButton: {
-    ...baseButtonStyle,
-  },
   buttonText: {
     ...baseButtonTextStyle,
   },
@@ -61,7 +58,7 @@ const styles = StyleSheet.create({
     ...baseButtonTextStyle,
     color: colours.onPrimary,
   },
-  operationButtonText: {
+  operatorButtonText: {
     ...baseButtonTextStyle,
     color: colours.primary,
   },
@@ -71,7 +68,11 @@ const styles = StyleSheet.create({
   },
   outputRow: {
     flex: 3,
-    flexDirection: 'row',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+  },
+  outputCell: {
+    flex: 1,
   },
 });
 
@@ -109,6 +110,18 @@ class OperandCalculatorButton extends React.Component<ButtonProps, any> {
   }
 }
 
+class OperatorCalculatorButton extends React.Component<ButtonProps, any> {
+  render() {
+    return (
+      <CalculatorButton
+        buttonStyle={styles.button}
+        textStyle={styles.operatorButtonText}
+        {...this.props}
+      />
+    );
+  }
+}
+
 class SubmitCalculatorButton extends React.Component<ButtonProps, any> {
   render() {
     return (
@@ -122,6 +135,7 @@ class SubmitCalculatorButton extends React.Component<ButtonProps, any> {
 }
 
 interface DiceCalculatorState {
+  history: Array<String>;
   output: string;
 }
 
@@ -136,6 +150,7 @@ export default class DiceCalculator extends React.Component<
   constructor(props: any) {
     super(props);
     this.state = {
+      history: new Array<String>(),
       output: '...',
     };
     this.expression = new Expression();
@@ -144,8 +159,10 @@ export default class DiceCalculator extends React.Component<
 
   onPress(token: number | string) {
     let output = this.state.output;
+    let history = this.state.history;
     if (token === '=') {
-      output = `${output} = ${this.expression.compute().toString()}`;
+      let result = `${output} = ${this.expression.compute().toString()}`;
+      history.push(result);
     } else if (token === 'C') {
       output = '...';
       this.expression = new Expression();
@@ -157,7 +174,8 @@ export default class DiceCalculator extends React.Component<
       this.expression.consumeToken(token);
     }
     this.setState({
-      output: output,
+      history,
+      output,
     });
   }
 
@@ -165,10 +183,10 @@ export default class DiceCalculator extends React.Component<
     return (
       <View style={styles.container}>
         <View style={styles.outputRow}>
-          <OperandCalculatorButton
-            onPress={this.onPress}
-            token={this.state.output}
-          />
+          {this.state.history.map(result => (
+            <Text style={styles.outputCell}>{result}</Text>
+          ))}
+          <Text style={styles.outputCell}>{this.state.output}</Text>
         </View>
         <View style={styles.row}>
           <OperandCalculatorButton onPress={this.onPress} token={7} />
@@ -187,12 +205,12 @@ export default class DiceCalculator extends React.Component<
         </View>
         <View style={styles.row}>
           <OperandCalculatorButton onPress={this.onPress} token={0} />
-          <OperandCalculatorButton onPress={this.onPress} token={'+'} />
-          <OperandCalculatorButton onPress={this.onPress} token={'-'} />
+          <OperatorCalculatorButton onPress={this.onPress} token={'+'} />
+          <OperatorCalculatorButton onPress={this.onPress} token={'-'} />
         </View>
         <View style={styles.row}>
-          <OperandCalculatorButton onPress={this.onPress} token={'C'} />
-          <OperandCalculatorButton onPress={this.onPress} token={'d'} />
+          <OperatorCalculatorButton onPress={this.onPress} token={'C'} />
+          <OperatorCalculatorButton onPress={this.onPress} token={'d'} />
           <SubmitCalculatorButton onPress={this.onPress} token={'='} />
         </View>
       </View>
