@@ -138,7 +138,7 @@ export default class DiceCalculator extends React.Component<
 
   onPress(token: number | string) {
     let output = this.state.output;
-    if (token !== 'Roll') {
+    if (token !== '=') {
       if (output === '...') {
         output = '';
       }
@@ -181,7 +181,7 @@ export default class DiceCalculator extends React.Component<
         <View style={styles.row}>
           <OperandCalculatorButton onPress={this.onPress} token={'AC'} />
           <OperandCalculatorButton onPress={this.onPress} token={'d'} />
-          <SubmitCalculatorButton onPress={this.onPress} token={'Roll'} />
+          <SubmitCalculatorButton onPress={this.onPress} token={'='} />
         </View>
       </View>
     );
