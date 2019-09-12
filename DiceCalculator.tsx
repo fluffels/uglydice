@@ -144,14 +144,17 @@ export default class DiceCalculator extends React.Component<
 
   onPress(token: number | string) {
     let output = this.state.output;
-    if (token !== '=') {
+    if (token === '=') {
+      output = `${output} = ${this.expression.compute().toString()}`;
+    } else if (token === 'C') {
+      output = '...';
+      this.expression = new Expression();
+    } else {
       if (output === '...') {
         output = '';
       }
       output += token;
       this.expression.consumeToken(token);
-    } else {
-      output = `${output} = ${this.expression.compute().toString()}`;
     }
     this.setState({
       output: output,
@@ -188,7 +191,7 @@ export default class DiceCalculator extends React.Component<
           <OperandCalculatorButton onPress={this.onPress} token={'-'} />
         </View>
         <View style={styles.row}>
-          <OperandCalculatorButton onPress={this.onPress} token={'AC'} />
+          <OperandCalculatorButton onPress={this.onPress} token={'C'} />
           <OperandCalculatorButton onPress={this.onPress} token={'d'} />
           <SubmitCalculatorButton onPress={this.onPress} token={'='} />
         </View>
