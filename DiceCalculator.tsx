@@ -1,7 +1,13 @@
 import React from 'react';
 
 import Expression from './Expression';
-import {Button, Text, TextStyle, TouchableHighlight, View, ViewStyle} from 'react-native';
+import {
+  Text,
+  TextStyle,
+  TouchableHighlight,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {StyleSheet} from 'react-native';
 
 const colours = {
@@ -145,7 +151,7 @@ export default class DiceCalculator extends React.Component<
       output += token;
       this.expression.consumeToken(token);
     } else {
-      output = this.expression.compute().toString();
+      output = `${output} = ${this.expression.compute().toString()}`;
     }
     this.setState({
       output: output,
@@ -156,7 +162,10 @@ export default class DiceCalculator extends React.Component<
     return (
       <View style={styles.container}>
         <View style={styles.outputRow}>
-          <OperandCalculatorButton onPress={this.onPress} token={this.state.output} />
+          <OperandCalculatorButton
+            onPress={this.onPress}
+            token={this.state.output}
+          />
         </View>
         <View style={styles.row}>
           <OperandCalculatorButton onPress={this.onPress} token={7} />

@@ -120,6 +120,7 @@ export default class Expression {
     if (this.currentNumber != null) {
       let node = new LeafNode(this.currentNumber);
       this.operandStack.push(node);
+      this.currentNumber = null;
     }
     while (this.operatorStack.length > 0) {
       if (this.operandStack.length < 2) {
@@ -142,9 +143,5 @@ export default class Expression {
       let result = root.calculate();
       return result;
     }
-  }
-
-  toString(): string {
-    return
   }
 }
