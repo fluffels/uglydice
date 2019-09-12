@@ -163,7 +163,7 @@ export default class DiceCalculator extends React.Component<
   DiceCalculatorState
 > {
   private expression: Expression;
-  private historyScroll: Ref;
+  private historyScroll: React.RefObject<ScrollView>;
 
   constructor(props: any) {
     super(props);
@@ -173,6 +173,7 @@ export default class DiceCalculator extends React.Component<
     };
     this.expression = new Expression();
     this.onPress = this.onPress.bind(this);
+    this.historyScroll = React.createRef<ScrollView>();
   }
 
   onPress(token: number | string) {
@@ -205,11 +206,11 @@ export default class DiceCalculator extends React.Component<
           style={styles.outputRow}
           contentContainerStyle={styles.outputRowContentContainer}
           onContentSizeChange={() => {
-            this.historyScroll.scrollToEnd();
+            if (this.historyScroll.current != null) {
+              this.historyScroll.current.scrollToEnd();
+            }
           }}
-          ref={v => {
-            this.historyScroll = v;
-          }}>
+          ref={this.historyScroll}>
           {this.state.history.map((result, index) => (
             <Text style={styles.outputCell} key={index}>
               {result}
