@@ -80,11 +80,13 @@ const styles = StyleSheet.create({
     flex: 3,
     flexDirection: 'column',
     alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     margin: 20,
   },
   outputCell: {
     ...baseTextStyle,
-    flex: 1,
+    margin: 5,
+    height: 20,
   },
 });
 
