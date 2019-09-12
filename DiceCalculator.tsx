@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Ref} from 'react';
 
 import Expression from './Expression';
 import {
+  ScrollView,
   Text,
   TextStyle,
   TouchableHighlight,
@@ -77,11 +78,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   outputRow: {
-    flex: 3,
+    height: 60,
     flexDirection: 'column',
+    margin: 20,
+  },
+  outputRowContentContainer: {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    margin: 20,
   },
   outputCell: {
     ...baseTextStyle,
@@ -160,6 +163,7 @@ export default class DiceCalculator extends React.Component<
   DiceCalculatorState
 > {
   private expression: Expression;
+  private historyScroll: Ref;
 
   constructor(props: any) {
     super(props);
@@ -197,13 +201,21 @@ export default class DiceCalculator extends React.Component<
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.outputRow}>
+        <ScrollView
+          style={styles.outputRow}
+          contentContainerStyle={styles.outputRowContentContainer}
+          onContentSizeChange={() => {
+            this.historyScroll.scrollToEnd();
+          }}
+          ref={v => {
+            this.historyScroll = v;
+          }}>
           {this.state.history.map((result, index) => (
             <Text style={styles.outputCell} key={index}>
               {result}
             </Text>
           ))}
-        </View>
+        </ScrollView>
         <View style={styles.expressionRow}>
           <Text style={styles.expressionText}>{this.state.output}</Text>
         </View>
